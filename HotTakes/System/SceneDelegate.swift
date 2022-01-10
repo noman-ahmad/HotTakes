@@ -27,8 +27,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             (auth, user) in
             
             if user != nil {
-                self.window?.rootViewController = TabBar()
-                self.window?.makeKeyAndVisible()
+                
+//                // check if profile was created
+//                if (FirestoreManager.shared.userProfileExists(userID: user!.uid) == true) {
+//                    print("Here Here 2")
+//                    self.window?.rootViewController = TabBar()
+//                    self.window?.makeKeyAndVisible()
+//                } else {
+//                    print("Here Here 1")
+//                    self.window?.rootViewController = ProfileSetupViewController()
+//                    self.window?.makeKeyAndVisible()
+//                }
+                
+                FirestoreManager.shared.userProfileExists(userID: user!.uid) {
+                    (exists) in
+                    if(exists) {
+                        print("Exists")
+                        self.window?.rootViewController = TabBar()
+                        self.window?.makeKeyAndVisible()
+                    } else {
+                        print("Doesnt Exist")
+                        self.window?.rootViewController = ProfileSetupViewController()
+                        self.window?.makeKeyAndVisible()
+                    }
+                }
+                
             } else {
                 self.window?.rootViewController = LoginViewController()
                 self.window?.makeKeyAndVisible()

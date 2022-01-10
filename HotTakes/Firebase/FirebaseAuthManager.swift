@@ -56,4 +56,12 @@ class FirebaseAuthManager {
             return ""
         }
     }
+    
+    func getUserID() -> String {
+        if let user = Auth.auth().currentUser {
+            return user.uid
+        } else {
+            return "" 
+        }
+    }
 }

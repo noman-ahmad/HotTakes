@@ -12,7 +12,7 @@ class UserViewController: UIViewController {
     
     private let nameLabel : UILabel = {
         let label = UILabel()
-        label.text = "Placeholder"
+        label.text = "Add Some Groups"
         label.font = UIFont(name: "AlNile",size: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -23,10 +23,15 @@ class UserViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
         
-        // check for user
-        if let user = Auth.auth().currentUser {
-            nameLabel.text = user.email
-        }
+        self.navigationController?.navigationBar.tintColor = UIColor.systemBackground
+        
+        let button1 = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"), style: .plain, target: self, action: Selector("action")) // action:#selector(Class.MethodName) for swift 3
+
+        self.navigationItem.rightBarButtonItem  = button1
+
+ 
+
+        
         
         view.addSubview(nameLabel)
         

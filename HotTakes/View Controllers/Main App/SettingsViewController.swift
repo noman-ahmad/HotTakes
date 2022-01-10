@@ -21,6 +21,10 @@ class SettingsViewController: UIViewController {
     private let profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 10
+        imageView.clipsToBounds = true
+        imageView.layer.borderWidth = 3
+        imageView.layer.borderColor = UIColor.white.cgColor
         imageView.image = UIImage(named: "profile")
         return imageView
     }()
@@ -29,7 +33,7 @@ class SettingsViewController: UIViewController {
         let label = UILabel()
         label.textColor = AppColors.shared.primaryPurple
         label.text = "Full Name"
-        label.font = UIFont(name: "Verdana-Italic",size: 15)
+        label.font = UIFont(name: "Verdana",size: 22)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
         
@@ -66,29 +70,28 @@ class SettingsViewController: UIViewController {
         
         profileContentView.addSubview(profileImage)
         profileContentView.addSubview(userNameLabel)
-        profileContentView.addSubview(emailLabel)
+        //profileContentView.addSubview(emailLabel)
         
         view.addSubview(profileContentView)
         view.addSubview(signoutButton)
         
         
-        profileContentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        profileContentView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        profileContentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        profileContentView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         profileContentView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        profileContentView.widthAnchor.constraint(equalToConstant: 180).isActive = true
+        profileContentView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         
         profileImage.topAnchor.constraint(equalTo: profileContentView.topAnchor, constant: 10).isActive = true
-        profileImage.leftAnchor.constraint(equalTo: profileContentView.leftAnchor, constant: 10).isActive = true
-        profileImage.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        profileImage.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImage.centerXAnchor.constraint(equalTo: profileContentView.centerXAnchor).isActive = true
+        profileImage.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        profileImage.widthAnchor.constraint(equalToConstant: 100).isActive = true
         
-        userNameLabel.topAnchor.constraint(equalTo: profileContentView.topAnchor, constant: 10).isActive = true
-        userNameLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 5).isActive = true
-        userNameLabel.rightAnchor.constraint(equalTo: profileContentView.rightAnchor, constant: -10).isActive = true
+        userNameLabel.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 10).isActive = true
+        userNameLabel.centerXAnchor.constraint(equalTo: profileContentView.centerXAnchor).isActive = true
         
-        emailLabel.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 5).isActive = true
-        emailLabel.leftAnchor.constraint(equalTo: userNameLabel.leftAnchor).isActive = true
-        emailLabel.rightAnchor.constraint(equalTo: profileContentView.rightAnchor, constant: -10).isActive = true
+//        emailLabel.topAnchor.constraint(equalTo: userNameLabel.bottomAnchor, constant: 5).isActive = true
+//        emailLabel.leftAnchor.constraint(equalTo: userNameLabel.leftAnchor).isActive = true
+//        emailLabel.rightAnchor.constraint(equalTo: profileContentView.rightAnchor, constant: -10).isActive = true
         
         
         
