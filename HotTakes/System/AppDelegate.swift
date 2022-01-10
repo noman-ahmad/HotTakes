@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // fix tab bar issues
+
+
+        
+        if #available(iOS 15.0, *) {
+            let appearance = UITabBarAppearance()
+            let tabAppearance = UITabBarItemAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = AppColors.shared.primaryPurple
+            tabAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.shared.primaryPurple]
+            tabAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.shared.primaryPurple]
+            UITabBar.appearance().standardAppearance = appearance
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
+        
+        // fix nav bar issues
+        
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = AppColors.shared.primaryPurple
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
+        
+        
+        
+        
+        // launch firebase
+        FirebaseApp.configure()
         return true
     }
 
