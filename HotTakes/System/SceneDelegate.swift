@@ -28,6 +28,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             if user != nil {
                 
+                user?.reload() {
+                    (error) in
+                    if error == nil {
+                        print("reload data completely")
+                    } else {
+                        print("didn't reload")
+                    }
+                }
+                
 //                // check if profile was created
 //                if (FirestoreManager.shared.userProfileExists(userID: user!.uid) == true) {
 //                    print("Here Here 2")

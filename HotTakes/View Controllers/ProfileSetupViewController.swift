@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 
 class ProfileSetupViewController: UIViewController{
@@ -81,7 +82,20 @@ class ProfileSetupViewController: UIViewController{
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         button.titleLabel?.textAlignment = .center
-        button.addTarget(self, action: #selector(finishbuttonTapped), for: .allEvents)
+        button.addTarget(self, action: #selector(finishbuttonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private let signoutButton:UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = AppColors.shared.primaryPurple
+        button.setTitle("Sign Out", for: .normal)
+        button.tintColor = .secondarySystemBackground
+        button.layer.cornerRadius = 5
+        button.clipsToBounds = true
+        button.titleLabel?.textAlignment = .center
+        button.addTarget(self, action: #selector(signoutButtonTapped), for: .allEvents)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -95,6 +109,7 @@ class ProfileSetupViewController: UIViewController{
         profilesetupContentView.addSubview(profileImage)
         profilesetupContentView.addSubview(photoselectButton)
         profilesetupContentView.addSubview(finishButton)
+        profilesetupContentView.addSubview(signoutButton)
         view.addSubview(profilesetupContentView)
         
         
@@ -129,8 +144,9 @@ class ProfileSetupViewController: UIViewController{
         titleLabel.centerXAnchor.constraint(equalTo: profilesetupContentView.centerXAnchor).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: profileImage.topAnchor, constant: -25).isActive = true
         
-        
-        
+        signoutButton.topAnchor.constraint(equalTo: finishButton.bottomAnchor, constant: 100).isActive = true
+        signoutButton.leftAnchor.constraint(equalTo: profilesetupContentView.leftAnchor, constant: 50).isActive = true
+        signoutButton.rightAnchor.constraint(equalTo: profilesetupContentView.rightAnchor, constant: -50).isActive = true
     }
     
     
@@ -150,11 +166,34 @@ class ProfileSetupViewController: UIViewController{
             let email = FirebaseAuthManager.shared.getUserEmail()
             let userID = FirebaseAuthManager.shared.getUserID()
             FirestoreManager.shared.addUserProfile(first_name: firstName, last_name: lastName, email: email, userID: userID, imageID: uniqueImageID)
-            // upload image
             FirebaseStorageManager.shared.uploadImage(image: profileImage.image!, imageID: uniqueImageID)
-            present(TabBar(), animated: true, completion: nil)
-
-            dismiss(animated: true, completion: nil)
+            let newVC = TabBar()
+            newVC.modalPresentationStyle = .fullScreen
+            self.present(newVC, animated: true, completion: nil)
+        }
+    }
+    
+    @objc func signoutButtonTapped() {
+        let authManager = FirebaseAuthManager.shared
+        authManager.signoutUser()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if(!FirebaseAuthManager.shared.emailisVerified()) {
+            self.finishButton.isEnabled = false
+            self.finishButton.setTitle("Verify Email & Reload App", for: .normal)
+            FirebaseAuthManager.shared.sendVerification()
+            Auth.auth().currentUser?.reload {
+                (error) in
+                if error == nil {
+                    print("done")
+                } else {
+                    print("error here")
+                }
+            }
+        } else {
+            self.finishButton.isEnabled = true
+            self.finishButton.setTitle("Complete", for: .normal)
         }
     }
 }

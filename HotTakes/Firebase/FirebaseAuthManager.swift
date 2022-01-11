@@ -64,4 +64,32 @@ class FirebaseAuthManager {
             return "" 
         }
     }
+    
+    func emailisVerified() -> Bool {
+        if let user = Auth.auth().currentUser {
+            if user.isEmailVerified {
+                print("Email is verified")
+                return true
+            } else {
+                print("Email is not verified")
+                return false
+            }
+        } else {
+            print("User does not exist")
+            return false
+        }
+    }
+    
+    func sendVerification() {
+        if let user = Auth.auth().currentUser {
+            user.sendEmailVerification {
+                (error) in
+                if error == nil {
+                    print("Verification Email Sent Successfully")
+                } else {
+                    print("Error sending email verification")
+                }
+            }
+        }
+    }
 }

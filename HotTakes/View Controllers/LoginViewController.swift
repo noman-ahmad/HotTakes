@@ -76,7 +76,7 @@ class LoginViewController: UIViewController {
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         button.titleLabel?.textAlignment = .center
-        button.addTarget(self, action: #selector(loginButtonTapped), for: .allEvents)
+        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -89,7 +89,7 @@ class LoginViewController: UIViewController {
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         button.titleLabel?.textAlignment = .center
-        button.addTarget(self, action: #selector(signupButtonTapped), for: .allEvents)
+        button.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
