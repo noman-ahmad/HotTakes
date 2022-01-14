@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // fix tab bar issues
+        
 
 
         
@@ -24,9 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let appearance = UITabBarAppearance()
             let tabAppearance = UITabBarItemAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = AppColors.shared.primaryPurple
-            tabAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.shared.primaryPurple]
-            tabAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.shared.primaryPurple]
+            appearance.backgroundColor = UIColor.secondarySystemBackground
+            
+            tabAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
+            tabAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
+            appearance.stackedLayoutAppearance = tabAppearance
             UITabBar.appearance().standardAppearance = appearance
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }
@@ -36,7 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = AppColors.shared.primaryPurple
+            appearance.backgroundColor = UIColor.secondarySystemBackground
+            appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.label]
             UINavigationBar.appearance().standardAppearance = appearance
             UINavigationBar.appearance().scrollEdgeAppearance = appearance
         }

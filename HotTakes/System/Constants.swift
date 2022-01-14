@@ -12,5 +12,5 @@ struct AppColors {
     
     static let shared = AppColors()
     
-    let primaryPurple = UIColor(red: 0.35, green: 0.27, blue: 0.70, alpha: 1)
+    let primaryPurple = UIColor(red: 147/255, green: 112/255, blue: 219/255, alpha: 1)
 }

@@ -23,6 +23,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
           window = UIWindow(windowScene: windowScene)
 //        window?.rootViewController = rootController
 //        window?.makeKeyAndVisible()
+        
+        let safeFrame = window?.safeAreaLayoutGuide.layoutFrame
+        let screenWidth = safeFrame?.width
+        let screenHeight = safeFrame?.height
+        
         let authListener = Auth.auth().addStateDidChangeListener {
             (auth, user) in
             
@@ -36,17 +41,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         print("didn't reload")
                     }
                 }
-                
-//                // check if profile was created
-//                if (FirestoreManager.shared.userProfileExists(userID: user!.uid) == true) {
-//                    print("Here Here 2")
-//                    self.window?.rootViewController = TabBar()
-//                    self.window?.makeKeyAndVisible()
-//                } else {
-//                    print("Here Here 1")
-//                    self.window?.rootViewController = ProfileSetupViewController()
-//                    self.window?.makeKeyAndVisible()
-//                }
                 
                 FirestoreManager.shared.userProfileExists(userID: user!.uid) {
                     (exists) in
